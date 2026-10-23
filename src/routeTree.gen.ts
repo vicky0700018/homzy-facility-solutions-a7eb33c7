@@ -11,6 +11,10 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as IndustriesRouteImport } from './routes/industries'
+import { Route as ServicesRouteImport } from './routes/services'
+import { Route as WorkRouteImport } from './routes/work'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminPanelRouteImport } from './routes/admin._panel'
 import { Route as AdminLoginRouteImport } from './routes/admin.login'
@@ -33,6 +37,26 @@ const IndexRoute = IndexRouteImport.update({
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IndustriesRoute = IndustriesRouteImport.update({
+  id: '/industries',
+  path: '/industries',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServicesRoute = ServicesRouteImport.update({
+  id: '/services',
+  path: '/services',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WorkRoute = WorkRouteImport.update({
+  id: '/work',
+  path: '/work',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminIndexRoute = AdminIndexRouteImport.update({
@@ -104,6 +128,10 @@ const AdminPanelTestimonialsRoute = AdminPanelTestimonialsRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
+  '/industries': typeof IndustriesRoute
+  '/services': typeof ServicesRoute
+  '/work': typeof WorkRoute
   '/admin': typeof AdminPanelRouteWithChildren
   '/admin/login': typeof AdminLoginRoute
   '/admin/': typeof AdminIndexRoute
@@ -121,6 +149,10 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
+  '/industries': typeof IndustriesRoute
+  '/services': typeof ServicesRoute
+  '/work': typeof WorkRoute
   '/admin': typeof AdminIndexRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/bookings': typeof AdminPanelBookingsRoute
@@ -138,6 +170,10 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
+  '/industries': typeof IndustriesRoute
+  '/services': typeof ServicesRoute
+  '/work': typeof WorkRoute
   '/admin/_panel': typeof AdminPanelRouteWithChildren
   '/admin/login': typeof AdminLoginRoute
   '/admin/': typeof AdminIndexRoute
@@ -157,6 +193,10 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/contact'
+    | '/industries'
+    | '/services'
+    | '/work'
     | '/admin'
     | '/admin/login'
     | '/admin/'
@@ -174,6 +214,10 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/contact'
+    | '/industries'
+    | '/services'
+    | '/work'
     | '/admin'
     | '/admin/login'
     | '/admin/bookings'
@@ -190,6 +234,10 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/about'
+    | '/contact'
+    | '/industries'
+    | '/services'
+    | '/work'
     | '/admin/_panel'
     | '/admin/login'
     | '/admin/'
@@ -208,6 +256,10 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  ContactRoute: typeof ContactRoute
+  IndustriesRoute: typeof IndustriesRoute
+  ServicesRoute: typeof ServicesRoute
+  WorkRoute: typeof WorkRoute
   AdminPanelRoute: typeof AdminPanelRouteWithChildren
   AdminLoginRoute: typeof AdminLoginRoute
   AdminIndexRoute: typeof AdminIndexRoute
@@ -227,6 +279,34 @@ declare module '@tanstack/react-router' {
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/industries': {
+      id: '/industries'
+      path: '/industries'
+      fullPath: '/industries'
+      preLoaderRoute: typeof IndustriesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/services': {
+      id: '/services'
+      path: '/services'
+      fullPath: '/services'
+      preLoaderRoute: typeof ServicesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/work': {
+      id: '/work'
+      path: '/work'
+      fullPath: '/work'
+      preLoaderRoute: typeof WorkRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin/': {
@@ -356,6 +436,10 @@ const AdminPanelRouteWithChildren = AdminPanelRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  ContactRoute: ContactRoute,
+  IndustriesRoute: IndustriesRoute,
+  ServicesRoute: ServicesRoute,
+  WorkRoute: WorkRoute,
   AdminPanelRoute: AdminPanelRouteWithChildren,
   AdminLoginRoute: AdminLoginRoute,
   AdminIndexRoute: AdminIndexRoute,
