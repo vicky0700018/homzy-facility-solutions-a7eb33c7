@@ -6,16 +6,26 @@ import { useStore, openBooking, addEnquiry, isValidPhone } from "./store.js";
 import hero from "@/assets/hero.jpg";
 import about from "@/assets/about.jpg";
 
-const NAV = [["Home", "home"], ["About Us", "about"], ["Services", "services"], ["Industries We Serve", "industries"], ["Our Work", "work"], ["Contact", "contact"]];
+// Each section is also its own page route — the navbar links to the pages.
+const NAV = [
+  ["Home", "/"],
+  ["About Us", "/about"],
+  ["Services", "/services"],
+  ["Industries We Serve", "/industries"],
+  ["Our Work", "/work"],
+  ["Contact", "/contact"],
+];
 
-function Navbar() {
+export function Navbar() {
   const [open, setOpen] = useState(false);
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-background/95 backdrop-blur">
       <div className="mx-auto flex h-18 max-w-7xl items-center justify-between px-4 py-3 sm:px-6">
-        <a href="#home" aria-label="HOMZY home"><Logo /></a>
+        <Link to="/" aria-label="HOMZY home"><Logo /></Link>
         <nav className="hidden items-center gap-7 lg:flex" aria-label="Main">
-          {NAV.map(([l, id]) => <a key={id} href={`#${id}`} className="text-sm font-medium text-foreground transition hover:text-primary">{l}</a>)}
+          {NAV.map(([l, to]) => (
+            <Link key={to} to={to} className="text-sm font-medium text-foreground transition hover:text-primary">{l}</Link>
+          ))}
         </nav>
         <div className="flex items-center gap-2">
           <button onClick={() => openBooking()} className="btn btn-primary hidden sm:inline-flex"><Icon name="phone" className="h-4 w-4" />Book a Service</button>
@@ -24,7 +34,7 @@ function Navbar() {
       </div>
       {open && (
         <nav className="border-t border-border bg-background px-4 pb-4 lg:hidden" aria-label="Mobile">
-          {NAV.map(([l, id]) => <a key={id} href={`#${id}`} onClick={() => setOpen(false)} className="block border-b border-border py-3 font-medium text-navy">{l}</a>)}
+          {NAV.map(([l, to]) => <Link key={to} to={to} onClick={() => setOpen(false)} className="block border-b border-border py-3 font-medium text-navy">{l}</Link>)}
           <button onClick={() => { setOpen(false); openBooking(); }} className="btn btn-primary mt-4 w-full"><Icon name="phone" className="h-4 w-4" />Book a Service</button>
         </nav>
       )}
@@ -42,7 +52,7 @@ function Heading({ eyebrow, title, text, light }) {
   );
 }
 
-function Hero() {
+export function Hero() {
   const c = useStore("content");
   return (
     <section id="home" className="hero-pattern relative overflow-hidden bg-muted">
@@ -53,7 +63,7 @@ function Hero() {
           <p className="mt-6 max-w-xl text-lg text-muted-foreground">{c.heroText}</p>
           <div className="mt-8 flex flex-wrap gap-3">
             <button onClick={() => openBooking()} className="btn btn-primary px-6 py-3.5">Book a Service <Icon name="arrow" className="h-4 w-4" /></button>
-            <a href="#services" className="btn btn-outline px-6 py-3.5">Explore Our Services</a>
+            <Link to="/services" className="btn btn-outline px-6 py-3.5">Explore Our Services</Link>
           </div>
           <ul className="mt-10 grid gap-4 sm:grid-cols-3">
             {[["users", "Professional Service Teams"], ["layers", "Flexible Service Solutions"], ["shield", "Quality-Focused Operations"]].map(([i, t]) => (
@@ -74,7 +84,7 @@ function Hero() {
   );
 }
 
-function About() {
+export function About() {
   const c = useStore("content");
   const items = [["Our Mission", "Create well-kept spaces that make daily life and work easier."], ["Our Approach", "Integrated planning with one coordinated team per site."], ["Quality and Reliability", "Checklists, supervision and consistent standards."], ["Customer-Centric Service", "Responsive communication and plans shaped around you."]];
   return (
@@ -94,7 +104,7 @@ function About() {
   );
 }
 
-function Services() {
+export function Services() {
   const services = useStore("services").filter((s) => s.published);
   const c = useStore("content");
   const [view, setView] = useState(null);
@@ -135,7 +145,7 @@ function Services() {
   );
 }
 
-function Industries() {
+export function Industries() {
   const industries = useStore("industries").filter((x) => x.published !== false);
   return (
     <section id="industries" className="py-20 lg:py-28">
@@ -158,7 +168,7 @@ function Industries() {
   );
 }
 
-function Why() {
+export function Why() {
   const items = [["user", "One Point of Contact", "A dedicated coordinator for every site and request."], ["calendar", "Flexible Service Plans", "One-time, daily, weekly or monthly — scale as you need."], ["layers", "Professional Service Coordination", "Teams, schedules and supplies planned together."], ["shield", "Quality-Focused Processes", "Checklists and supervised visits for consistent results."], ["chat", "Transparent Communication", "Clear updates on schedules, staffing and issues."], ["heart", "Customer-Oriented Support", "Responsive help shaped around your property."]];
   return (
     <section className="bg-navy-deep py-20 lg:py-28">
@@ -178,7 +188,7 @@ function Why() {
   );
 }
 
-function Work() {
+export function Work() {
   const gallery = useStore("gallery").filter((g) => g.published !== false);
   const [cat, setCat] = useState("All");
   const [preview, setPreview] = useState(null);
@@ -211,7 +221,7 @@ function Work() {
   );
 }
 
-function Testimonials() {
+export function Testimonials() {
   const list = useStore("testimonials").filter((t) => t.published);
   if (!list.length) return null;
   return (
@@ -232,7 +242,7 @@ function Testimonials() {
   );
 }
 
-function Contact() {
+export function Contact() {
   const c = useStore("content");
   const EMPTY = { name: "", email: "", phone: "", subject: "", message: "" };
   const [f, setF] = useState(EMPTY);
@@ -286,7 +296,7 @@ function Contact() {
   );
 }
 
-function Footer() {
+export function Footer() {
   const c = useStore("content");
   const services = useStore("services").filter((s) => s.published).slice(0, 6);
   return (
@@ -294,7 +304,7 @@ function Footer() {
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 md:grid-cols-2 lg:grid-cols-4">
         <div><Logo light /><p className="mt-4 text-sm">{c.footer}</p>
           <button onClick={() => openBooking()} className="btn btn-gold mt-6">Book a Service</button></div>
-        <div><h3 className="font-bold text-secondary-foreground">Quick Links</h3><ul className="mt-4 space-y-2 text-sm">{NAV.map(([l, id]) => <li key={id}><a href={`#${id}`} className="hover:text-primary">{l}</a></li>)}</ul></div>
+        <div><h3 className="font-bold text-secondary-foreground">Quick Links</h3><ul className="mt-4 space-y-2 text-sm">{NAV.map(([l, to]) => <li key={to}><Link to={to} className="hover:text-primary">{l}</Link></li>)}</ul></div>
         <div><h3 className="font-bold text-secondary-foreground">Services</h3><ul className="mt-4 space-y-2 text-sm">{services.map((s) => <li key={s.id}><button onClick={() => openBooking(s.title)} className="text-left hover:text-primary">{s.title}</button></li>)}</ul></div>
         <div><h3 className="font-bold text-secondary-foreground">Contact</h3><ul className="mt-4 space-y-2 text-sm"><li>{c.address}</li><li>{c.phone}</li><li>{c.email}</li></ul>
           <Link to="/admin/login" className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-gold hover:underline"><Icon name="shield" className="h-4 w-4" />Admin Login</Link></div>
@@ -309,13 +319,30 @@ function Footer() {
   );
 }
 
-export default function Site() {
+/** Shared page shell: navbar, content, footer and the booking modal. */
+export function PageShell({ children }) {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
-      <main><Hero /><About /><Services /><Industries /><Why /><Work /><Testimonials /><Contact /></main>
+      <main>{children}</main>
       <Footer />
       <BookingModal />
     </div>
+  );
+}
+
+/** The full home page: every section in order. */
+export default function Site() {
+  return (
+    <PageShell>
+      <Hero />
+      <About />
+      <Services />
+      <Industries />
+      <Why />
+      <Work />
+      <Testimonials />
+      <Contact />
+    </PageShell>
   );
 }
