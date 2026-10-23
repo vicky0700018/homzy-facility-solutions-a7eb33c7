@@ -78,14 +78,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "HOMZY Services Private Limited" },
+      { name: "description", content: "Integrated facility management, housekeeping and maintenance services by HOMZY." },
+      { name: "author", content: "SOSynch Ai Tech" },
+      { property: "og:title", content: "HOMZY Services Private Limited" },
+      { property: "og:description", content: "Integrated facility management, housekeeping and maintenance services by HOMZY." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
       {
